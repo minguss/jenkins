@@ -14,6 +14,7 @@ pipeline {
             steps {
                 echo "Hello ${params.CHOICE}"
                 echo "Hello ${params.Version}"
+		sh "kubectl get psp"
             }
         }
         stage('Prod') {
