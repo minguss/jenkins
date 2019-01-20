@@ -1,8 +1,6 @@
-node('node') {
-   stage('Preparation') { // for display purposes
-   }
-   stage('Build') {
-   }
-   stage('Results') {
-   }
+#!groovy
+
+@Library('MicroserviceBuilder') _
+microserviceBuilderPipeline {
+  image = 'microclimatespringtemplate'
 }
