@@ -2,27 +2,29 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
-        file(name: "FILE", description: "Choose a file to upload")
+        myStage = string(name: 'Version', defaultValue: 'lastest', description: 'Version정보를 입력하세요.')
+        myVersion = choice(name: 'CHOICE', choices: ['Dev', 'Prod'], description: '배포 대상을 선택하세요.')
     }
 
     stages {
-        stage("foo") {
+        stage('Dev') {
+            when {
+                expression { myStage == 'Dev' }
+            }
             steps {
-                echo "Hello ${params.PERSON}"
-
-                echo "Biography: ${params.BIOGRAPHY}"
-
-                echo "Toggle: ${params.TOGGLE}"
-
-                echo "Choice: ${params.CHOICE}"
-
-                echo "Password: ${params.PASSWORD}"
+                echo "Hello ${params.myStage}"
+                echo "Hello ${params.myVersion}"
+            }
+        }
+        stage('Prod') {
+            when {
+                expression { myStage == 'Prod' }
+            }
+            steps {
+                echo "Hello ${params.myStage}"
+                echo "Hello ${params.myVersion}"
             }
         }
     }
 }
+	
