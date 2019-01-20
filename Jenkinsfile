@@ -1,12 +1,5 @@
 pipeline {
-	  def label = "sumapp-${UUID.randomUUID().toString()}"
-		podTemplate(label: label, 
-		containers: [
-			containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.0', command: 'cat', ttyEnabled: true)
-		],
-		volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]
-		) {
-	node(label) {
+    agent any
 
     parameters {
         string(name: 'Version', defaultValue: 'lastest', description: 'Version정보를 입력하세요.')
@@ -34,7 +27,4 @@ pipeline {
             }
         }
     }
-		}
 }
-}
-	
