@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Dev') {
             when {
-                expression { ${params.CHOICE} == 'Dev' }
+                expression { params.CHOICE == 'Dev' }
             }
             steps {
                 echo "Hello ${params.CHOICE}"
@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Prod') {
             when {
-                expression { ${params.CHOICE} == 'Prod' }
+                expression { params.CHOICE == 'Prod' }
             }
             steps {
                 echo "Hello ${params.CHOICE}"
