@@ -2,27 +2,27 @@ pipeline {
     agent any
 
     parameters {
-        myStage = string(name: 'Version', defaultValue: 'lastest', description: 'Version정보를 입력하세요.')
-        myVersion = choice(name: 'CHOICE', choices: ['Dev', 'Prod'], description: '배포 대상을 선택하세요.')
+        string(name: 'Version', defaultValue: 'lastest', description: 'Version정보를 입력하세요.')
+        choice(name: 'CHOICE', choices: ['Dev', 'Prod'], description: '배포 대상을 선택하세요.')
     }
 
     stages {
         stage('Dev') {
             when {
-                expression { myStage == 'Dev' }
+                expression { ${params.CHOICE} == 'Dev' }
             }
             steps {
-                echo "Hello ${params.myStage}"
-                echo "Hello ${params.myVersion}"
+                echo "Hello ${params.CHOICE}"
+                echo "Hello ${params.Version}"
             }
         }
         stage('Prod') {
             when {
-                expression { myStage == 'Prod' }
+                expression { ${params.CHOICE} == 'Prod' }
             }
             steps {
-                echo "Hello ${params.myStage}"
-                echo "Hello ${params.myVersion}"
+                echo "Hello ${params.CHOICE}"
+                echo "Hello ${params.Version}"
             }
         }
     }
